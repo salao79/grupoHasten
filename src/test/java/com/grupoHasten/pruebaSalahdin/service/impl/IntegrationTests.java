@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = PruebaSalahdinApplication.class)
-@ComponentScan(basePackages = "com.grupoHasten.pruebaSalahdin")
 public class IntegrationTests {
 
     @Autowired
