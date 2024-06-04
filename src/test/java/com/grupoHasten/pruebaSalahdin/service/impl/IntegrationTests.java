@@ -1,6 +1,8 @@
 package com.grupoHasten.pruebaSalahdin.service.impl;
 
 import com.grupoHasten.pruebaSalahdin.PruebaSalahdinApplication;
+import com.grupoHasten.pruebaSalahdin.exception.BadRequestException;
+import com.grupoHasten.pruebaSalahdin.exception.ResourceNotFoundException;
 import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
 import com.grupoHasten.pruebaSalahdin.model.entity.NaveEspacial;
 import com.grupoHasten.pruebaSalahdin.repository.INaveEspacialRepository;
@@ -8,18 +10,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = PruebaSalahdinApplication.class)
@@ -58,6 +56,13 @@ public class IntegrationTests {
     }
 
     @Test
+    void testFindByIdNotFound() {
+        assertThrows(ResourceNotFoundException.class, () -> {
+            naveEspacialService.findById(999L);
+        });
+    }
+
+    @Test
     void testFindByNameContaining() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<NaveEspacialDTO> result = naveEspacialService.findByNameContaining("Falcon", pageable);
@@ -74,6 +79,16 @@ public class IntegrationTests {
         assertEquals(3, naveEspacialRepository.count());
     }
 
+    @Test
+    void testSaveInvalidData() {
+        NaveEspacialDTO naveEspacialDTO = null;
+
+        assertThrows(BadRequestException.class, () -> {
+            naveEspacialService.save(naveEspacialDTO);
+        });
+
+        assertEquals(2, naveEspacialRepository.count());
+    }
 
     @Test
     void testAspecto() {
@@ -99,5 +114,14 @@ public class IntegrationTests {
         naveEspacialService.deleteById(savedNaveEspacial.getId());
 
         assertEquals(1, naveEspacialRepository.count());
+    }
+
+    @Test
+    void testDeleteByIdNotFound() {
+        assertThrows(ResourceNotFoundException.class, () -> {
+            naveEspacialService.deleteById(999L);
+        });
+
+        assertEquals(2, naveEspacialRepository.count());
     }
 }

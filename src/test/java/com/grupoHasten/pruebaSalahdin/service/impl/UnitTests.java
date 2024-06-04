@@ -1,5 +1,6 @@
 package com.grupoHasten.pruebaSalahdin.service.impl;
 
+import com.grupoHasten.pruebaSalahdin.exception.*;
 import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
 import com.grupoHasten.pruebaSalahdin.model.entity.NaveEspacial;
 import com.grupoHasten.pruebaSalahdin.repository.INaveEspacialRepository;
@@ -16,8 +17,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -51,11 +54,20 @@ public class UnitTests {
     @Test
     void testFindById() {
         NaveEspacial naveEspacial = new NaveEspacial(1L, "Falcon");
-        when(naveEspacialRepository.findById(1L)).thenReturn(naveEspacial);
+        when(naveEspacialRepository.findById(1L)).thenReturn(Optional.of(naveEspacial));
 
         NaveEspacialDTO result = naveEspacialService.findById(1L);
 
         assertEquals("Falcon", result.getName());
+        verify(naveEspacialRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void testFindByIdNotFound() {
+        when(naveEspacialRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> naveEspacialService.findById(1L));
+
         verify(naveEspacialRepository, times(1)).findById(1L);
     }
 
@@ -85,6 +97,15 @@ public class UnitTests {
     }
 
     @Test
+    void testSaveInvalidData() {
+        NaveEspacialDTO naveEspacialDTO = null;
+
+        assertThrows(BadRequestException.class, () -> naveEspacialService.save(naveEspacialDTO));
+
+        verify(naveEspacialRepository, times(0)).save(any(NaveEspacial.class));
+    }
+
+    @Test
     void testUpdate() {
         NaveEspacial naveEspacial = new NaveEspacial(1L, "Falcon");
         NaveEspacialDTO naveEspacialDTO = new NaveEspacialDTO(1L, "Falcon");
@@ -98,10 +119,21 @@ public class UnitTests {
 
     @Test
     void testDeleteById() {
+        NaveEspacial naveEspacial = new NaveEspacial(1L, "Falcon");
+        when(naveEspacialRepository.findById(1L)).thenReturn(Optional.of(naveEspacial));
         doNothing().when(naveEspacialRepository).deleteById(1L);
 
         naveEspacialService.deleteById(1L);
 
         verify(naveEspacialRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    void testDeleteByIdNotFound() {
+        when(naveEspacialRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> naveEspacialService.deleteById(1L));
+
+        verify(naveEspacialRepository, times(1)).findById(1L);
     }
 }
