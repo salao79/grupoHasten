@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.cache.annotation.Cacheable;
 
 @Service
 public class NaveEspacialService extends BaseService implements INaveEspacialService {
@@ -24,6 +25,7 @@ public class NaveEspacialService extends BaseService implements INaveEspacialSer
         return super.mapPage(all, NaveEspacialDTO.class, pageable);
     }
 
+    @Cacheable(value = "naves", key = "#id")
     @Override
     public NaveEspacialDTO findById(Long id) {
 
@@ -32,6 +34,7 @@ public class NaveEspacialService extends BaseService implements INaveEspacialSer
         return super.map(byId, NaveEspacialDTO.class);
     }
 
+    @Cacheable(value = "naves", key = "#id")
     @Override
     public Page<NaveEspacialDTO> findByNameContaining(String name, Pageable pageable) {
 
