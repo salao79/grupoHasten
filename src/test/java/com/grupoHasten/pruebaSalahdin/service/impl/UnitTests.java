@@ -88,12 +88,12 @@ public class UnitTests {
     void testUpdate() {
         NaveEspacial naveEspacial = new NaveEspacial(1L, "Falcon");
         NaveEspacialDTO naveEspacialDTO = new NaveEspacialDTO(1L, "Falcon");
-        when(naveEspacialRepository.update(any(NaveEspacial.class))).thenReturn(naveEspacial);
+        when(naveEspacialRepository.save(any(NaveEspacial.class))).thenReturn(naveEspacial);
 
         NaveEspacialDTO result = naveEspacialService.update(naveEspacialDTO);
 
         assertEquals("Falcon", result.getName());
-        verify(naveEspacialRepository, times(1)).update(any(NaveEspacial.class));
+        verify(naveEspacialRepository, times(1)).save(any(NaveEspacial.class));
     }
 
     @Test

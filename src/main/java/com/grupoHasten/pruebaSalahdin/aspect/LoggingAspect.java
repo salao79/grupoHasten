@@ -1,5 +1,6 @@
 package com.grupoHasten.pruebaSalahdin.aspect;
 
+import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
 import com.grupoHasten.pruebaSalahdin.model.entity.NaveEspacial;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -17,11 +18,11 @@ public class LoggingAspect {
     @Before("execution(* *..*Service.*(..))")
     public void logBeforeMethod(JoinPoint joinPoint) {
         for (Object arg : joinPoint.getArgs()) {
-            if (arg instanceof NaveEspacial naveEspacial) {
+            if (arg instanceof NaveEspacialDTO naveEspacial) {
                 if (naveEspacial.getId() != null && naveEspacial.getId() == -1) {
                     String className = joinPoint.getTarget().getClass().getSimpleName();
                     String methodName = joinPoint.getSignature().getName();
-                    logger.info("Hay una nave espacial con id -1: {}.{}() with NaveEspacial id = -1", className, methodName);
+                    logger.info("Hay una nave espacial con id -1");
                 }
             }
         }

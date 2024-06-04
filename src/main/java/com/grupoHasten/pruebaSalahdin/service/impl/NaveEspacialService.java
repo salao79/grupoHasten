@@ -8,7 +8,9 @@ import com.grupoHasten.pruebaSalahdin.service.interfaces.INaveEspacialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
+@Service
 public class NaveEspacialService extends BaseService implements INaveEspacialService {
 
     @Autowired
@@ -49,7 +51,7 @@ public class NaveEspacialService extends BaseService implements INaveEspacialSer
     @Override
     public NaveEspacialDTO update(NaveEspacialDTO naveEspacialDTO) {
 
-        NaveEspacial updated = this.iNaveEspacialRepository.update(super.map(naveEspacialDTO, NaveEspacial.class));
+        NaveEspacial updated = this.iNaveEspacialRepository.save(super.map(naveEspacialDTO, NaveEspacial.class));
 
         return super.map(updated, NaveEspacialDTO.class);
     }

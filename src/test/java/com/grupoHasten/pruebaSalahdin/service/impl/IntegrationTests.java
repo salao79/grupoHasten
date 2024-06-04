@@ -74,6 +74,16 @@ public class IntegrationTests {
         assertEquals(3, naveEspacialRepository.count());
     }
 
+
+    @Test
+    void testAspecto() {
+        NaveEspacialDTO naveEspacialDTO = new NaveEspacialDTO(-1L, "Falcon Heavy");
+        NaveEspacialDTO result = naveEspacialService.save(naveEspacialDTO);
+
+        assertEquals("Falcon Heavy", result.getName());
+        assertEquals(3, naveEspacialRepository.count());
+    }
+
     @Test
     void testUpdate() {
         NaveEspacial savedNaveEspacial = naveEspacialRepository.findByNameContaining("Falcon 1", PageRequest.of(0, 1)).getContent().get(0);
