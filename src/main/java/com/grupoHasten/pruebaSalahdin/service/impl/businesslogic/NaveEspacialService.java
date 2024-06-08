@@ -1,23 +1,29 @@
-package com.grupoHasten.pruebaSalahdin.service.impl;
+package com.grupoHasten.pruebaSalahdin.service.impl.businesslogic;
 
+import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
 import com.grupoHasten.pruebaSalahdin.model.dto.exception.BadRequestException;
 import com.grupoHasten.pruebaSalahdin.model.dto.exception.ResourceNotFoundException;
-import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
 import com.grupoHasten.pruebaSalahdin.model.entity.NaveEspacial;
 import com.grupoHasten.pruebaSalahdin.repository.INaveEspacialRepository;
-import com.grupoHasten.pruebaSalahdin.service.interfaces.BaseService;
-import com.grupoHasten.pruebaSalahdin.service.interfaces.INaveEspacialService;
+import com.grupoHasten.pruebaSalahdin.service.impl.BaseService;
+import com.grupoHasten.pruebaSalahdin.service.interfaces.broker.IBrokerService;
+import com.grupoHasten.pruebaSalahdin.service.interfaces.businesslogic.INaveEspacialService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.cache.annotation.Cacheable;
 
 @Service
 public class NaveEspacialService extends BaseService implements INaveEspacialService {
 
     @Autowired
     private INaveEspacialRepository iNaveEspacialRepository;
+
+    @Autowired
+
+    private IBrokerService brokerService;
+
 
     @Override
     public Page<NaveEspacialDTO> findAll(Pageable pageable) {
@@ -46,6 +52,8 @@ public class NaveEspacialService extends BaseService implements INaveEspacialSer
             throw new BadRequestException("Nave espacial is null");
         }
         NaveEspacial saved = this.iNaveEspacialRepository.save(super.map(naveEspacialDTO, NaveEspacial.class));
+        System.out.println("Enviando a kafka");
+        brokerService.sendNaveEspacialToBroker(saved);
         return super.map(saved, NaveEspacialDTO.class);
     }
 

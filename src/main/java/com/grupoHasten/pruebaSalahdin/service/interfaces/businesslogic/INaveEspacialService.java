@@ -1,4 +1,4 @@
-package com.grupoHasten.pruebaSalahdin.service.interfaces;
+package com.grupoHasten.pruebaSalahdin.service.interfaces.businesslogic;
 
 import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
 import org.springframework.data.domain.Page;

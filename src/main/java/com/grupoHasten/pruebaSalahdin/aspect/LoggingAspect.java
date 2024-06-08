@@ -1,7 +1,7 @@
 package com.grupoHasten.pruebaSalahdin.aspect;
 
 import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
-import com.grupoHasten.pruebaSalahdin.service.impl.NaveEspacialService;
+import com.grupoHasten.pruebaSalahdin.service.impl.businesslogic.NaveEspacialService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

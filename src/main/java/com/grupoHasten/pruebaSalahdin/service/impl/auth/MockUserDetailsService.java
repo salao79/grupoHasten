@@ -1,4 +1,4 @@
-package com.grupoHasten.pruebaSalahdin.service.impl;
+package com.grupoHasten.pruebaSalahdin.service.impl.auth;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

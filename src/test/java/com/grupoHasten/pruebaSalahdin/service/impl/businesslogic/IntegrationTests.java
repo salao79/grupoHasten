@@ -1,9 +1,9 @@
-package com.grupoHasten.pruebaSalahdin.service.impl;
+package com.grupoHasten.pruebaSalahdin.service.impl.businesslogic;
 
 import com.grupoHasten.pruebaSalahdin.PruebaSalahdinApplication;
+import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
 import com.grupoHasten.pruebaSalahdin.model.dto.exception.BadRequestException;
 import com.grupoHasten.pruebaSalahdin.model.dto.exception.ResourceNotFoundException;
-import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
 import com.grupoHasten.pruebaSalahdin.model.entity.NaveEspacial;
 import com.grupoHasten.pruebaSalahdin.repository.INaveEspacialRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,12 +14,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
+@ActiveProfiles("test")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @SpringBootTest(classes = PruebaSalahdinApplication.class)
 public class IntegrationTests {
 

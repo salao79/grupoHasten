@@ -2,7 +2,7 @@ package com.grupoHasten.pruebaSalahdin.configuration.security;
 
 import com.grupoHasten.pruebaSalahdin.security.JwtAuthenticationEntryPoint;
 import com.grupoHasten.pruebaSalahdin.security.JwtRequestFilter;
-import com.grupoHasten.pruebaSalahdin.service.impl.MockUserDetailsService;
+import com.grupoHasten.pruebaSalahdin.service.impl.auth.MockUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

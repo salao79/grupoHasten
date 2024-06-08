@@ -1,4 +1,4 @@
-package com.grupoHasten.pruebaSalahdin.service.interfaces;
+package com.grupoHasten.pruebaSalahdin.service.impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

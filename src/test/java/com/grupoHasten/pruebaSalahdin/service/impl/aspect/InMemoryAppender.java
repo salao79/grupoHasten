@@ -1,4 +1,4 @@
-package com.grupoHasten.pruebaSalahdin.service.impl;
+package com.grupoHasten.pruebaSalahdin.service.impl.aspect;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.AppenderBase;

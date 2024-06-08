@@ -1,10 +1,11 @@
-package com.grupoHasten.pruebaSalahdin.service.impl;
+package com.grupoHasten.pruebaSalahdin.service.impl.businesslogic;
 
 import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
 import com.grupoHasten.pruebaSalahdin.model.dto.exception.BadRequestException;
 import com.grupoHasten.pruebaSalahdin.model.dto.exception.ResourceNotFoundException;
 import com.grupoHasten.pruebaSalahdin.model.entity.NaveEspacial;
 import com.grupoHasten.pruebaSalahdin.repository.INaveEspacialRepository;
+import com.grupoHasten.pruebaSalahdin.service.impl.broker.KafkaMessagingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -26,10 +28,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
 public class UnitTests {
 
     @Mock
     private INaveEspacialRepository naveEspacialRepository;
+
+    @Mock
+    private KafkaMessagingService brokerService;
 
     @InjectMocks
     private NaveEspacialService naveEspacialService;

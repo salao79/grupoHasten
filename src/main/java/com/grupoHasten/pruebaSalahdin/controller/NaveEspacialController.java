@@ -1,7 +1,7 @@
 package com.grupoHasten.pruebaSalahdin.controller;
 
 import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
-import com.grupoHasten.pruebaSalahdin.service.impl.NaveEspacialService;
+import com.grupoHasten.pruebaSalahdin.service.impl.businesslogic.NaveEspacialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
