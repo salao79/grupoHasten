@@ -1,4 +1,4 @@
-package com.grupoHasten.pruebaSalahdin.configuration;
+package com.grupoHasten.pruebaSalahdin.configuration.swagger;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.SpecVersion;

@@ -18,7 +18,7 @@ public class BaseService {
                 try {
                     dtoField = r.getDeclaredField(entityField.getName());
                 } catch (NoSuchFieldException e) {
-                    continue; // If the field does not exist in the DTO, skip it
+                    continue;
                 }
                 dtoField.setAccessible(true);
                 dtoField.set(dto, entityField.get(t));

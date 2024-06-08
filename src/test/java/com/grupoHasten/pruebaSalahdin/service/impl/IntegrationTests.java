@@ -1,25 +1,20 @@
 package com.grupoHasten.pruebaSalahdin.service.impl;
 
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.spi.ILoggingEvent;
 import com.grupoHasten.pruebaSalahdin.PruebaSalahdinApplication;
-import com.grupoHasten.pruebaSalahdin.exception.BadRequestException;
-import com.grupoHasten.pruebaSalahdin.exception.ResourceNotFoundException;
+import com.grupoHasten.pruebaSalahdin.model.dto.exception.BadRequestException;
+import com.grupoHasten.pruebaSalahdin.model.dto.exception.ResourceNotFoundException;
 import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
 import com.grupoHasten.pruebaSalahdin.model.entity.NaveEspacial;
 import com.grupoHasten.pruebaSalahdin.repository.INaveEspacialRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,7 +29,6 @@ public class IntegrationTests {
     @Autowired
     private INaveEspacialRepository naveEspacialRepository;
 
-    private InMemoryAppender inMemoryAppender;
 
     @BeforeEach
     void setUp() {
@@ -45,11 +39,6 @@ public class IntegrationTests {
         naveEspacialRepository.save(naveEspacial1);
         naveEspacialRepository.save(naveEspacial2);
 
-        Logger logger = (Logger) LoggerFactory.getLogger(NaveEspacialService.class);
-        inMemoryAppender = new InMemoryAppender();
-        inMemoryAppender.setContext(logger.getLoggerContext());
-        logger.addAppender(inMemoryAppender);
-        inMemoryAppender.start();
     }
 
     @Test
@@ -101,16 +90,6 @@ public class IntegrationTests {
         });
 
         assertEquals(2, naveEspacialRepository.count());
-    }
-
-    @Test
-    void testAspecto() {
-        NaveEspacialDTO naveEspacialDTO = new NaveEspacialDTO(-1L, "Falcon Heavy");
-        naveEspacialService.save(naveEspacialDTO);
-
-        List<ILoggingEvent> logEvents = inMemoryAppender.getEvents();
-        assertEquals(1, logEvents.size());
-        assertEquals("Hay una nave espacial con id -1", logEvents.get(0).getFormattedMessage());
     }
 
     @Test

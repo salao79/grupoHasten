@@ -1,9 +1,9 @@
-package com.grupoHasten.pruebaSalahdin.configuration;
+package com.grupoHasten.pruebaSalahdin.configuration.exception;
 
-import com.grupoHasten.pruebaSalahdin.exception.BadRequestException;
-import com.grupoHasten.pruebaSalahdin.exception.ExceptionDetails;
-import com.grupoHasten.pruebaSalahdin.exception.ResourceNotFoundException;
-import com.grupoHasten.pruebaSalahdin.exception.UnauthorizedException;
+import com.grupoHasten.pruebaSalahdin.model.dto.exception.BadRequestException;
+import com.grupoHasten.pruebaSalahdin.model.dto.exception.ExceptionDetails;
+import com.grupoHasten.pruebaSalahdin.model.dto.exception.ResourceNotFoundException;
+import com.grupoHasten.pruebaSalahdin.model.dto.exception.UnauthorizedException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

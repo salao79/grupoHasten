@@ -36,7 +36,7 @@ public class NaveEspacialController {
 
     @PutMapping("/{id}")
     public NaveEspacialDTO update(@PathVariable String id, @RequestBody NaveEspacialDTO naveEspacialDTO) {
-        naveEspacialDTO.setId(Long.parseLong(id)); // Ensure the ID is set correctly
+        naveEspacialDTO.setId(Long.parseLong(id));
         return naveEspacialService.update(naveEspacialDTO);
     }
 

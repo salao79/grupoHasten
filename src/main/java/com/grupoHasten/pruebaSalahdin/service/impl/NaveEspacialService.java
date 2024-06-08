@@ -1,7 +1,7 @@
 package com.grupoHasten.pruebaSalahdin.service.impl;
 
-import com.grupoHasten.pruebaSalahdin.exception.BadRequestException;
-import com.grupoHasten.pruebaSalahdin.exception.ResourceNotFoundException;
+import com.grupoHasten.pruebaSalahdin.model.dto.exception.BadRequestException;
+import com.grupoHasten.pruebaSalahdin.model.dto.exception.ResourceNotFoundException;
 import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
 import com.grupoHasten.pruebaSalahdin.model.entity.NaveEspacial;
 import com.grupoHasten.pruebaSalahdin.repository.INaveEspacialRepository;
@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.cache.annotation.Cacheable;
-
-import java.util.Optional;
 
 @Service
 public class NaveEspacialService extends BaseService implements INaveEspacialService {

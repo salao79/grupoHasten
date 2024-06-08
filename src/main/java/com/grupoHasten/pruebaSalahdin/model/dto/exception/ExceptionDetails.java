@@ -1,4 +1,4 @@
-package com.grupoHasten.pruebaSalahdin.exception;
+package com.grupoHasten.pruebaSalahdin.model.dto.exception;
 
 import lombok.*;
 

@@ -2,6 +2,8 @@ package com.grupoHasten.pruebaSalahdin.service.impl;
 
 import com.grupoHasten.pruebaSalahdin.exception.*;
 import com.grupoHasten.pruebaSalahdin.model.dto.NaveEspacialDTO;
+import com.grupoHasten.pruebaSalahdin.model.dto.exception.BadRequestException;
+import com.grupoHasten.pruebaSalahdin.model.dto.exception.ResourceNotFoundException;
 import com.grupoHasten.pruebaSalahdin.model.entity.NaveEspacial;
 import com.grupoHasten.pruebaSalahdin.repository.INaveEspacialRepository;
 import org.junit.jupiter.api.BeforeEach;
