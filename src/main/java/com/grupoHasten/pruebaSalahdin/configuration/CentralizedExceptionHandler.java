@@ -2,41 +2,45 @@ package com.grupoHasten.pruebaSalahdin.configuration;
 
 import com.grupoHasten.pruebaSalahdin.exception.BadRequestException;
 import com.grupoHasten.pruebaSalahdin.exception.ExceptionDetails;
+import com.grupoHasten.pruebaSalahdin.exception.ResourceNotFoundException;
 import com.grupoHasten.pruebaSalahdin.exception.UnauthorizedException;
-import org.apache.kafka.common.errors.ResourceNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.Date;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class CentralizedExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
-        ExceptionDetails exceptionDetails = new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
+    public ResponseEntity<ExceptionDetails> handleResourceNotFoundException(ResourceNotFoundException ex, HttpServletRequest request) {
+        return this.createExceptionDetails(HttpStatus.NOT_FOUND, ex.getMessage(), request);
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<?> handleBadRequestException(BadRequestException ex, WebRequest request) {
-        ExceptionDetails exceptionDetails = new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ExceptionDetails> handleBadRequestException(BadRequestException ex, HttpServletRequest request) {
+        return this.createExceptionDetails(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
     }
 
     @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<?> handleUnauthorizedException(UnauthorizedException ex, WebRequest request) {
-        ExceptionDetails exceptionDetails = new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(exceptionDetails, HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<ExceptionDetails> handleUnauthorizedException(UnauthorizedException ex, HttpServletRequest request) {
+        return this.createExceptionDetails(HttpStatus.UNAUTHORIZED, ex.getMessage(), request);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleGlobalException(Exception ex, WebRequest request) {
-        ExceptionDetails exceptionDetails = new ExceptionDetails(new Date(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(exceptionDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<ExceptionDetails> handleException(Exception ex, HttpServletRequest request) {
+        return this.createExceptionDetails(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), request);
     }
 
+    private ResponseEntity<ExceptionDetails> createExceptionDetails(HttpStatus status, String message, HttpServletRequest request) {
+        ExceptionDetails errorResponse = new ExceptionDetails(
+                status.value(),
+                status.getReasonPhrase(),
+                message,
+                request.getRequestURI()
+        );
+        return new ResponseEntity<>(errorResponse, status);
+    }
 }

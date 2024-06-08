@@ -2,7 +2,7 @@ package com.grupoHasten.pruebaSalahdin.exception;
 
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Getter
@@ -10,8 +10,20 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExceptionDetails {
-    private Date timestamp;
+    private LocalDateTime timestamp;
+    private int status;
+    private String error;
     private String message;
-    private String details;
+    private String path;
+
+    public ExceptionDetails(int status, String error, String message, String path) {
+        this.timestamp = LocalDateTime.now();
+        this.status = status;
+        this.error = error;
+        this.message = message;
+        this.path = path;
+    }
+
+
 
 }
